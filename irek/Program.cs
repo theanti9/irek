@@ -4,10 +4,11 @@ namespace irek
 {
     class Program
     {
+        public static irek.Server.Server srv;
         static void Main(string[] args)
         {
             Console.WriteLine("Starting irek!");
-            irek.Server.Server srv = new irek.Server.Server();
+            srv = new irek.Server.Server();
         }
     }
 }

@@ -3,5 +3,4 @@ E:\development\C#\irek\irek\bin\Debug\irek.pdb
 E:\development\C#\irek\irek\obj\Debug\ResolveAssemblyReference.cache
 E:\development\C#\irek\irek\obj\Debug\irek.exe
 E:\development\C#\irek\irek\obj\Debug\irek.pdb
-E:\development\C#\irek\irek\bin\Debug\www\irek.htm
 E:\development\C#\irek\irek\bin\Debug\irek.conf

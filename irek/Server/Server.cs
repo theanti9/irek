@@ -24,7 +24,7 @@ namespace irek.Server
                 Environment.Exit(1);
             }
             Console.WriteLine("Initializing...");
-            Listener listener = new Listener(int.Parse(ServerConfig.Get("port")));
+            Listener listener = new Listener(ServerConfig);
             //Thread t = new Thread(new ThreadStart(listener.Run));
             listener.Run();
 

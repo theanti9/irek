@@ -4,7 +4,8 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-
+using irek.Request;
+using irek.Configuration;
 namespace irek.Server
 {
     public class Listener
@@ -13,10 +14,13 @@ namespace irek.Server
         private Socket server;
         private Byte[] data = new Byte[2048];
         static ManualResetEvent allDone = new ManualResetEvent(false);
+        public Config config;
 
-        public Listener(int _port)
+        public Listener(Config cfg)
         {
-            port = _port;
+            port = int.Parse(cfg.Get("port"));
+            config = cfg;
+            ServicePointManager.DefaultConnectionLimit = 20;
         }
 
         public void Run()
@@ -59,27 +63,30 @@ namespace irek.Server
                 if (read > 0)
                 {
                     state.sb.Append(Encoding.ASCII.GetString(state.buffer, 0, read));
-                    if (s.Available > 0)
-                    {
-                        s.BeginReceive(state.buffer, 0, SocketStateObject.BUFFER_SIZE, 0, new AsyncCallback(Read), state);
-                        return;
-                    }
+
+                    SocketStateObject nextState = new SocketStateObject();
+                    nextState.workSocket = s;
+                    s.BeginReceive(state.buffer, 0, SocketStateObject.BUFFER_SIZE, 0, new AsyncCallback(Read), nextState);
                 }
                 if (state.sb.Length > 1)
                 {
                     string requestString = state.sb.ToString();
                     // HANDLE REQUEST HERE
-                    
+                    byte[] answer = RequestHandler.Handle(requestString, ref config);
                     // Temporary response
+                    /*
                     string resp = "<h1>It Works!</h1>";
                     string head = "HTTP/1.1 200 OK\r\nContent-Type: text/html;\r\nServer: irek\r\nContent-Length:"+resp.Length+"\r\n\r\n";
                     byte[] answer = Encoding.ASCII.GetBytes(head+resp);
                     // end temp.
-                    state.workSocket.BeginSend(answer, 0, answer.Length, SocketFlags.None, new AsyncCallback(Send), state.workSocket);
+                    */
+                    state.workSocket.BeginSend(answer, 0, answer.Length, SocketFlags.None, new AsyncCallback(Send), s);
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
                 return;
             }
         }
