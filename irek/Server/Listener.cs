@@ -63,10 +63,11 @@ namespace irek.Server
                 if (read > 0)
                 {
                     state.sb.Append(Encoding.ASCII.GetString(state.buffer, 0, read));
-
+                    /*
                     SocketStateObject nextState = new SocketStateObject();
                     nextState.workSocket = s;
                     s.BeginReceive(state.buffer, 0, SocketStateObject.BUFFER_SIZE, 0, new AsyncCallback(Read), nextState);
+                    */
                 }
                 if (state.sb.Length > 1)
                 {
@@ -80,7 +81,7 @@ namespace irek.Server
                     byte[] answer = Encoding.ASCII.GetBytes(head+resp);
                     // end temp.
                     */
-                    state.workSocket.BeginSend(answer, 0, answer.Length, SocketFlags.None, new AsyncCallback(Send), s);
+                    state.workSocket.BeginSend(answer, 0, answer.Length, SocketFlags.None, new AsyncCallback(Send), state);
                 }
             }
             catch (Exception e)
