@@ -28,9 +28,7 @@ namespace irek.Server
             }
             Console.WriteLine("Initializing...");
             Listener listener = new Listener(ServerConfig);
-            //Thread t = new Thread(new ThreadStart(listener.Run));
             listener.Run();
-
         }
     }
 }
