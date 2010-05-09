@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using irek.Request;
 using irek.Configuration;
+using libirek.Urls;
 namespace irek.Server
 {
     public class Listener
@@ -15,15 +16,17 @@ namespace irek.Server
         private Byte[] data = new Byte[2048];
         static ManualResetEvent allDone = new ManualResetEvent(false);
         public Config config;
+        public UrlMap<UrlMapItem> GlobalUrlMap;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Listener"/> class.
         /// </summary>
         /// <param name="cfg">The Config Object.</param>
-        public Listener(Config cfg)
+        public Listener(Config cfg, UrlMap<UrlMapItem> GlobalUrlMap)
         {
             port = int.Parse(cfg.Get("port"));
             config = cfg;
+            GlobalUrlMap = new UrlMap<UrlMapItem>();
             ServicePointManager.DefaultConnectionLimit = 20;
         }
 

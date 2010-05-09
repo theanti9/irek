@@ -7,13 +7,14 @@ using irek.Configuration;
 using irek.Configuration.Errors;
 using irek.Modules;
 using irek.Modules.Errors;
+using libirek.Urls;
 namespace irek.Server
 {
     public class Server
     {
         public Config ServerConfig;
         public ModuleConfReader ModuleConfig;
-
+        public UrlMap<UrlMapItem> GlobalUrlMap;
         /// <summary>
         /// Initializes a new instance of the <see cref="Server"/> class.
         /// </summary>
@@ -36,10 +37,19 @@ namespace irek.Server
                 dep.Load();
             }
 
-            
+            GlobalUrlMap = new UrlMap<UrlMapItem>();
+            foreach (Module mod in ModuleConfig.Modules)
+            {
+                mod.Load();
+                UrlMap<UrlMapItem> tempmap = new UrlMap<UrlMapItem>();
+                foreach (UrlMapItem mapitem in tempmap)
+                {
+                    GlobalUrlMap.Add(mapitem);
+                }
+            }
             
             Console.WriteLine("Initializing...");
-            Listener listener = new Listener(ServerConfig);
+            Listener listener = new Listener(ServerConfig, GlobalUrlMap);
             listener.Run();
         }
     }
