@@ -50,8 +50,11 @@
     <Compile Include="Configuration\ConfigReader.cs" />
     <Compile Include="Configuration\Errors\InvalidConfigurationKeyException.cs" />
     <Compile Include="Configuration\Errors\NoSuchConfigurationFileException.cs" />
-    <Compile Include="Configuration\Errors\NoSuchModuleException.cs" />
+    <Compile Include="Modules\Errors\MissingDependencyException.cs" />
+    <Compile Include="Modules\Errors\NoSuchModuleException.cs" />
     <Compile Include="Configuration\ModuleConfReader.cs" />
+    <Compile Include="Modules\Dependency.cs" />
+    <Compile Include="Modules\Errors\InvalidModuleMapException.cs" />
     <Compile Include="Modules\Module.cs" />
     <Compile Include="Request\Header.cs" />
     <Compile Include="Request\Request.cs" />

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace irek.Configuration.Errors
+namespace irek.Modules.Errors
 {
     class NoSuchModuleException : System.Exception
     {

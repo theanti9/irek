@@ -4,7 +4,6 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using irek.Configuration;
-using irek.Configuration.Errors;
 using irek.Modules.Errors;
 using libirek.Urls;
 namespace irek.Modules
@@ -15,11 +14,18 @@ namespace irek.Modules
         public Assembly ModuleAssembly;
         public UrlMap<UrlMapItem> UrlMap;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Module"/> class.
+        /// </summary>
+        /// <param name="modulepath">The modulepath.</param>
         public Module(string modulepath)
         {
             ModulePath = modulepath;
         }
 
+        /// <summary>
+        /// Loads this the module and instantiates the UrlMap.
+        /// </summary>
         public void Load()
         {
             if (!File.Exists(ModulePath))
@@ -38,10 +44,14 @@ namespace irek.Modules
                     object[] mparams = new object[0];
                     UrlMap = (UrlMap<UrlMapItem>)m.Invoke(null, mparams);
                 }
+                else
+                {
+                    throw new InvalidModuleMapException("Error: The ModuleMap class is incorrect!");
+                }
             }
             else
             {
-                throw new InvalidModuleMapException("Error: The ModuleMap class is missing or incorrect!");
+                throw new InvalidModuleMapException("Error: The ModuleMap class is missing!");
             }
         }
     }
