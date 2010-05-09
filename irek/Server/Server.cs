@@ -11,6 +11,9 @@ namespace irek.Server
     {
         public Config ServerConfig;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Server"/> class.
+        /// </summary>
         public Server()
         {
             Console.WriteLine("Loading Configuration...");

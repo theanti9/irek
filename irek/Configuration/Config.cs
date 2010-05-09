@@ -10,11 +10,20 @@ namespace irek.Configuration
     {
         private Hashtable Map;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Config"/> class.
+        /// </summary>
+        /// <param name="configfile">The configfile.</param>
         public Config(string configfile)
         {
             Map = ConfigReader.Read(configfile);
         }
 
+        /// <summary>
+        /// Gets the specified key.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns>string value</returns>
         public string Get(string key) 
         {
             if (Map.ContainsKey((object)key))
@@ -28,6 +37,11 @@ namespace irek.Configuration
             }
         }
 
+        /// <summary>
+        /// Sets the specified key.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="val">The val.</param>
         public void Set(string key, string val)
         {
             if (Map.ContainsKey((object)key))

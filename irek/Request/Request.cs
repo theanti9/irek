@@ -11,6 +11,10 @@ namespace irek.Request
         public Hashtable GET;
         public Hashtable CLIENT;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Request"/> class.
+        /// </summary>
+        /// <param name="fullrequest">The full request string.</param>
         public Request(string fullrequest)
         {
             string line = fullrequest.Substring(0, fullrequest.IndexOf("\r\n"));

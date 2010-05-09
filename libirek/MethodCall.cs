@@ -11,6 +11,12 @@ namespace libirek
         public string MethodName;
         public Hashtable Data;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MethodCall"/> class.
+        /// </summary>
+        /// <param name="methodstring">The methodstring.</param>
+        /// <param name="rx">The rx.</param>
+        /// <param name="url">The URL.</param>
         public MethodCall(string methodstring, Regex rx, string url)
         {
             MethodNamespace = methodstring.Substring(0, methodstring.LastIndexOf('.'));

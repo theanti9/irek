@@ -50,6 +50,7 @@
     <Compile Include="Configuration\ConfigReader.cs" />
     <Compile Include="Configuration\Errors\InvalidConfigurationKeyException.cs" />
     <Compile Include="Configuration\Errors\NoSuchConfigurationFileException.cs" />
+    <Compile Include="Configuration\ModuleConfReader.cs" />
     <Compile Include="Request\Header.cs" />
     <Compile Include="Request\Request.cs" />
     <Compile Include="Request\RequestHandler.cs" />

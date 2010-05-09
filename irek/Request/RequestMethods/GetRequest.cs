@@ -13,6 +13,12 @@ namespace irek.Request.RequestMethods
         public string QueryString;
         public string Path;
         public Header header;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetRequest"/> class.
+        /// </summary>
+        /// <param name="httpversion">The httpversion.</param>
+        /// <param name="path">The path.</param>
+        /// <param name="querystring">The querystring.</param>
         public GetRequest(string httpversion, string path, string querystring)
         {
             HttpVersion = httpversion;
@@ -20,6 +26,10 @@ namespace irek.Request.RequestMethods
             QueryString = querystring;
         }
 
+        /// <summary>
+        /// Gets the response.
+        /// </summary>
+        /// <returns>Byte[]</returns>
         public byte[] GetResponse()
         {
             string response;

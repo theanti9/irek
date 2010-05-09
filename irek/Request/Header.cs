@@ -8,6 +8,13 @@ namespace irek.Request
     public class Header
     {
         string header;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Header"/> class.
+        /// </summary>
+        /// <param name="HttpVersion">The HTTP version.</param>
+        /// <param name="ContentType">Type of the content.</param>
+        /// <param name="ContentLength">Length of the content.</param>
+        /// <param name="Status">The status.</param>
         public Header(string HttpVersion, string ContentType, int ContentLength, string Status)
         {
             String buffer = "";
@@ -24,6 +31,10 @@ namespace irek.Request
             header = buffer;
         }
 
+        /// <summary>
+        /// Gets the header.
+        /// </summary>
+        /// <returns>String</returns>
         public string GetHeader()
         {
             return header;

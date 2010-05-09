@@ -98,6 +98,11 @@ namespace libirek.Urls
             return new UrlMapEnumerator<T>(this);
         }
 
+        /// <summary>
+        /// Finds the matching method.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <returns>The MethodCall object for the URL.</returns>
         public MethodCall FindMatchingMethod(string url)
         {
             foreach (T obj in _innerArray)

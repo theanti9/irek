@@ -8,6 +8,11 @@ namespace irek.Configuration
 {
     public class ConfigReader
     {
+        /// <summary>
+        /// Reads the specified configfile.
+        /// </summary>
+        /// <param name="configfile">The configfile.</param>
+        /// <returns>Hashtable</returns>
         public static Hashtable Read(string configfile)
         {
             if (!File.Exists(configfile))
@@ -18,6 +23,7 @@ namespace irek.Configuration
             
             StreamReader sr = File.OpenText(configfile);
             string text = sr.ReadToEnd();
+            sr.Close();
 
             MatchCollection matches = rx.Matches(text);
 

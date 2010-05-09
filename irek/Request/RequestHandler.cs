@@ -9,6 +9,12 @@ namespace irek.Request
 {
     public static class RequestHandler
     {
+        /// <summary>
+        /// Handles the specified request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="config">The config.</param>
+        /// <returns></returns>
         public static byte[] Handle(string request, ref Config config)
         {
             string HttpVersion;

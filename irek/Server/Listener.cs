@@ -16,6 +16,10 @@ namespace irek.Server
         static ManualResetEvent allDone = new ManualResetEvent(false);
         public Config config;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Listener"/> class.
+        /// </summary>
+        /// <param name="cfg">The Config Object.</param>
         public Listener(Config cfg)
         {
             port = int.Parse(cfg.Get("port"));
@@ -23,6 +27,9 @@ namespace irek.Server
             ServicePointManager.DefaultConnectionLimit = 20;
         }
 
+        /// <summary>
+        /// Runs this instance.
+        /// </summary>
         public void Run()
         {
             server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -41,6 +48,10 @@ namespace irek.Server
 
         }
 
+        /// <summary>
+        /// Accepts the con.
+        /// </summary>
+        /// <param name="iar">The Async Result.</param>
         private void AcceptCon(IAsyncResult iar)
         {
             allDone.Set();
@@ -51,6 +62,10 @@ namespace irek.Server
             s2.BeginReceive(state.buffer, 0, SocketStateObject.BUFFER_SIZE, 0, new AsyncCallback(Read), state);
         }
 
+        /// <summary>
+        /// Reads the data from the server.
+        /// </summary>
+        /// <param name="iar">The Async Result</param>
         private void Read(IAsyncResult iar)
         {
             try
@@ -92,6 +107,10 @@ namespace irek.Server
             }
         }
 
+        /// <summary>
+        /// Sends the response.
+        /// </summary>
+        /// <param name="iar">The Async Results.</param>
         private void Send(IAsyncResult iar)
         {
             try
