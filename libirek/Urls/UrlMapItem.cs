@@ -26,5 +26,10 @@ namespace libirek.Urls
             }
             return false;
         }
+
+        public MethodCall GetMethodCall(string url)
+        {
+            return (new MethodCall(Method, rx, url));
+        }
     }
 }

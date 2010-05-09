@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="MethodCall.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Urls\UrlMap.cs" />
     <Compile Include="Urls\UrlMapItem.cs" />
@@ -58,4 +59,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <PropertyGroup>
+    <PostBuildEvent>copy E:\development\C#\irek\libirek\bin\Debug\libirek.dll E:\development\C#\irek\irek\bin\Debug\</PostBuildEvent>
+  </PropertyGroup>
 </Project>

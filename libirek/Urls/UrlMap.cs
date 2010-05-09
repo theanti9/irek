@@ -98,16 +98,16 @@ namespace libirek.Urls
             return new UrlMapEnumerator<T>(this);
         }
 
-        public string FindMatchingMethod(string url)
+        public MethodCall FindMatchingMethod(string url)
         {
             foreach (T obj in _innerArray)
             {
                 if (obj.IsMatch(url))
                 {
-                    return obj.Method;
+                    return obj.GetMethodCall(url);
                 }
             }
-            return "";
+            return null;
         }
     }
 
