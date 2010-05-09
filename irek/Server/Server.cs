@@ -5,11 +5,14 @@ using System.Text;
 using System.Threading;
 using irek.Configuration;
 using irek.Configuration.Errors;
+using irek.Modules;
+using irek.Modules.Errors;
 namespace irek.Server
 {
     public class Server
     {
         public Config ServerConfig;
+        public ModuleConfReader ModuleConfig;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Server"/> class.
@@ -26,6 +29,15 @@ namespace irek.Server
                 Console.WriteLine("Error: " + e.Message);
                 Environment.Exit(1);
             }
+
+            ModuleConfig = new ModuleConfReader(Directory.GetCurrentDirectory() + "\\modules.conf");
+            foreach (Dependency dep in ModuleConfig.Dependencies)
+            {
+                dep.Load();
+            }
+
+            
+            
             Console.WriteLine("Initializing...");
             Listener listener = new Listener(ServerConfig);
             listener.Run();
