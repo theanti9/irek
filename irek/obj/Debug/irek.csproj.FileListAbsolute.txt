@@ -5,3 +5,4 @@ E:\development\C#\irek\irek\obj\Debug\irek.exe
 E:\development\C#\irek\irek\obj\Debug\irek.pdb
 E:\development\C#\irek\irek\bin\Debug\irek.conf
 E:\development\C#\irek\irek\bin\Debug\www\test.html
+E:\development\C#\irek\irek\bin\Debug\modules.conf
