@@ -3,12 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-namespace irek.Request
+namespace libirek
 {
     public class Request
     {
         public string RequestedPath;
         public Hashtable GET;
+        public Hashtable POST;
         public Hashtable CLIENT;
 
         /// <summary>

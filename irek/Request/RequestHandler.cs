@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using irek.Configuration;
 using irek.Request.RequestMethods;
-
+using libirek.Urls;
 namespace irek.Request
 {
     public static class RequestHandler
@@ -15,7 +15,7 @@ namespace irek.Request
         /// <param name="request">The request.</param>
         /// <param name="config">The config.</param>
         /// <returns></returns>
-        public static byte[] Handle(string request, ref Config config)
+        public static byte[] Handle(string request, ref Config config, ref UrlMap<UrlMapItem> UrlMap)
         {
             string HttpVersion;
             string Path;

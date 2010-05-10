@@ -32,14 +32,16 @@ namespace irek.Server
             }
 
             ModuleConfig = new ModuleConfReader(Directory.GetCurrentDirectory() + "\\modules.conf");
-            foreach (Dependency dep in ModuleConfig.Dependencies)
+            foreach (string depstring in ModuleConfig.Dependencies)
             {
+                Dependency dep = new Dependency(depstring);
                 dep.Load();
             }
 
             GlobalUrlMap = new UrlMap<UrlMapItem>();
-            foreach (Module mod in ModuleConfig.Modules)
+            foreach (string modstring in ModuleConfig.Modules)
             {
+                Module mod = new Module(modstring);
                 mod.Load();
                 UrlMap<UrlMapItem> tempmap = new UrlMap<UrlMapItem>();
                 foreach (UrlMapItem mapitem in tempmap)

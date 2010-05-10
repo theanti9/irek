@@ -22,11 +22,11 @@ namespace irek.Server
         /// Initializes a new instance of the <see cref="Listener"/> class.
         /// </summary>
         /// <param name="cfg">The Config Object.</param>
-        public Listener(Config cfg, UrlMap<UrlMapItem> GlobalUrlMap)
+        public Listener(Config cfg, UrlMap<UrlMapItem> UrlMap)
         {
             port = int.Parse(cfg.Get("port"));
             config = cfg;
-            GlobalUrlMap = new UrlMap<UrlMapItem>();
+            GlobalUrlMap = UrlMap;
             ServicePointManager.DefaultConnectionLimit = 20;
         }
 
@@ -91,7 +91,7 @@ namespace irek.Server
                 {
                     string requestString = state.sb.ToString();
                     // HANDLE REQUEST HERE
-                    byte[] answer = RequestHandler.Handle(requestString, ref config);
+                    byte[] answer = RequestHandler.Handle(requestString, ref config, ref GlobalUrlMap);
                     // Temporary response
                     /*
                     string resp = "<h1>It Works!</h1>";
