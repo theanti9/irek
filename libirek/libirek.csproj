@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="MethodCall.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Request.cs" />
     <Compile Include="Urls\UrlMap.cs" />
     <Compile Include="Urls\UrlMapItem.cs" />
   </ItemGroup>
