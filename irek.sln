@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "irek", "irek\irek.csproj", "{1B1B0D62-156A-40B9-AF4E-984AB79A69F6}"
 	ProjectSection(ProjectDependencies) = postProject
 		{A179A0A0-303C-44B8-9A1D-1C7F799F06D1} = {A179A0A0-303C-44B8-9A1D-1C7F799F06D1}
