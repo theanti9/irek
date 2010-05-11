@@ -1,0 +1,15 @@
+Building
+========
+
+To get irek to build in Visual Studio, you have to add libirek as a dependency (Project->Project Dependencies->check libirek) But then it should build normally.
+
+Running
+=======
+
+To run irek, libirek needs to be placed in the same folder as the executable. To make this easy, you can add a post-build event in Visual Studio.
+
+ - Open libirek properties
+ - Go to build events
+ - In the post-build commands, put (without quotes) "copy C:\path\to\irek\folder\libirek\bin\Debug\libirek.dll C:\path\to\irek\folder\irek\bin\Debug\"
+ - Save
+ - Build
