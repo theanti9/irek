@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Web;
 
 namespace libirek
 {
@@ -41,7 +42,8 @@ namespace libirek
 					{
 						val = val.Substring(1);
 					}
-					POST.Add(groups[1].Value, val);
+					
+					POST.Add(groups[1].Value, HttpUtility.UrlDecode(val));
 				}
 			}
         }

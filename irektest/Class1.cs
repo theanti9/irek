@@ -12,6 +12,7 @@ namespace irektest
 		{
 			List<UrlMapItem> map = new List<UrlMapItem>();
 			map.Add(new UrlMapItem(@"^\/hello\/", "irektest.Class1.hello"));
+			map.Add(new UrlMapItem(@"^\/media\/(.+)", "irek.static", @"E:\"));
 
 			return map;
 		}

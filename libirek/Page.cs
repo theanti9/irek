@@ -15,8 +15,8 @@ namespace libirek
 			Body = body;
 		}
 
-		public Header GetHeader() {
-			return PageHeader;
+		public string GetHeader() {
+			return PageHeader.GetHeader();
 		}
 
 		public string GetBody()
@@ -24,5 +24,9 @@ namespace libirek
 			return Body;
 		}
 
+		public void SetContentType(string contenttype)
+		{
+			PageHeader.SetContentType(contenttype);
+		}
 	}
 }
