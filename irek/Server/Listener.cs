@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
@@ -16,18 +17,19 @@ namespace irek.Server
         private Byte[] data = new Byte[2048];
         static ManualResetEvent allDone = new ManualResetEvent(false);
         public Config config;
-        public UrlMap<UrlMapItem> GlobalUrlMap;
-
+        public List<UrlMapItem> GlobalUrlMap;
+		public Hashtable ModuleList;
         /// <summary>
         /// Initializes a new instance of the <see cref="Listener"/> class.
         /// </summary>
         /// <param name="cfg">The Config Object.</param>
-        public Listener(Config cfg, UrlMap<UrlMapItem> UrlMap)
+        public Listener(Config cfg, List<UrlMapItem> UrlMap, Hashtable modulelist)
         {
             port = int.Parse(cfg.Get("port"));
             config = cfg;
             GlobalUrlMap = UrlMap;
             ServicePointManager.DefaultConnectionLimit = 20;
+			ModuleList = modulelist;
         }
 
         /// <summary>
@@ -91,7 +93,7 @@ namespace irek.Server
                 {
                     string requestString = state.sb.ToString();
                     // HANDLE REQUEST HERE
-                    byte[] answer = RequestHandler.Handle(requestString, ref config, ref GlobalUrlMap);
+                    byte[] answer = RequestHandler.Handle(requestString, ref config, ref GlobalUrlMap, ref ModuleList);
                     // Temporary response
                     /*
                     string resp = "<h1>It Works!</h1>";

@@ -11,8 +11,9 @@ namespace irek.Modules
     public class Module
     {
         public string ModulePath;
+		public string ModuleNamespace;
         public Assembly ModuleAssembly;
-        public UrlMap<UrlMapItem> UrlMap;
+        public List<UrlMapItem> UrlMap;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Module"/> class.
@@ -34,15 +35,15 @@ namespace irek.Modules
             }
             ModuleAssembly = Assembly.LoadFile(ModulePath);
             int lastslash = ModulePath.LastIndexOf(@"\");
-            string assemblynamespace = ModulePath.Substring(lastslash, ModulePath.LastIndexOf('.') - lastslash);
+            string assemblynamespace = ModulePath.Substring(lastslash+1, ModulePath.LastIndexOf('.') - lastslash-1);
+			ModuleNamespace = assemblynamespace;
             Type t = ModuleAssembly.GetType(assemblynamespace+".ModuleMap");
             if (t != null)
             {
                 MethodInfo m = t.GetMethod("GetUrlMap");
                 if (m != null)
                 {
-                    object[] mparams = new object[0];
-                    UrlMap = (UrlMap<UrlMapItem>)m.Invoke(null, mparams);
+                    UrlMap = (List<UrlMapItem>)m.Invoke(null, (new object[]{}));
                 }
                 else
                 {

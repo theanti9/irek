@@ -38,15 +38,5 @@ namespace libirek.Urls
             }
             return false;
         }
-
-        /// <summary>
-        /// Gets the method call.
-        /// </summary>
-        /// <param name="url">The URL.</param>
-        /// <returns>MethodCall object</returns>
-        public MethodCall GetMethodCall(string url)
-        {
-            return (new MethodCall(Method, rx, url));
-        }
     }
 }

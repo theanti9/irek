@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "irek", "irek\irek.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libirek", "libirek\libirek.csproj", "{A179A0A0-303C-44B8-9A1D-1C7F799F06D1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "irektest", "irektest\irektest.csproj", "{4CBB375D-A32B-44C9-AE37-676430942506}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -22,6 +24,10 @@ Global
 		{A179A0A0-303C-44B8-9A1D-1C7F799F06D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A179A0A0-303C-44B8-9A1D-1C7F799F06D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A179A0A0-303C-44B8-9A1D-1C7F799F06D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CBB375D-A32B-44C9-AE37-676430942506}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CBB375D-A32B-44C9-AE37-676430942506}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CBB375D-A32B-44C9-AE37-676430942506}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CBB375D-A32B-44C9-AE37-676430942506}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

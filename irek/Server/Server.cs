@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -14,7 +15,8 @@ namespace irek.Server
     {
         public Config ServerConfig;
         public ModuleConfReader ModuleConfig;
-        public UrlMap<UrlMapItem> GlobalUrlMap;
+        public List<UrlMapItem> GlobalUrlMap;
+		public Hashtable ModuleList;
         /// <summary>
         /// Initializes a new instance of the <see cref="Server"/> class.
         /// </summary>
@@ -38,12 +40,14 @@ namespace irek.Server
                 dep.Load();
             }
 
-            GlobalUrlMap = new UrlMap<UrlMapItem>();
+            GlobalUrlMap = new List<UrlMapItem>();
+			ModuleList = new Hashtable();
             foreach (string modstring in ModuleConfig.Modules)
             {
                 Module mod = new Module(modstring);
                 mod.Load();
-                UrlMap<UrlMapItem> tempmap = new UrlMap<UrlMapItem>();
+				ModuleList.Add(mod.ModuleNamespace, mod.ModuleAssembly);
+				List<UrlMapItem> tempmap = mod.UrlMap;
                 foreach (UrlMapItem mapitem in tempmap)
                 {
                     GlobalUrlMap.Add(mapitem);
@@ -51,7 +55,7 @@ namespace irek.Server
             }
             
             Console.WriteLine("Initializing...");
-            Listener listener = new Listener(ServerConfig, GlobalUrlMap);
+            Listener listener = new Listener(ServerConfig, GlobalUrlMap, ModuleList);
             listener.Run();
         }
     }
