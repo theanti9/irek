@@ -91,7 +91,7 @@ namespace irek.Server
                 {
                     string requestString = state.sb.ToString();
                     // HANDLE REQUEST HERE
-					Console.WriteLine(requestString);
+					//Console.WriteLine(requestString);
                     byte[] answer = RequestHandler.Handle(requestString, ref config, ref GlobalUrlMap, ref ModuleList);
                     // Temporary response
                     /*

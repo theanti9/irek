@@ -36,6 +36,10 @@ namespace irek.Server
 					staticpath = item.Path;
 				}
 			}
+			if (string.IsNullOrEmpty(method))
+			{
+				return Encoding.ASCII.GetBytes(Get404());
+			}
 			if (method == "irek.static") {
 				Match match = rx.Match(path);
 				string addpath = match.Groups[1].Value;
@@ -58,16 +62,31 @@ namespace irek.Server
 				}
 				else
 				{
-					return null;
+					return Encoding.ASCII.GetBytes(Get404());
 				}
 			}
 			Request rq = new Request(request, rx);
 			string methodnamespace = method.Substring(0, method.IndexOf('.'));
-			Assembly assembly = (Assembly)ModuleList[methodnamespace];
-			Type t = assembly.GetType(method.Substring(0, method.LastIndexOf('.')));
-			MethodInfo m = t.GetMethod(method.Substring(method.LastIndexOf('.') + 1));
-			Page p = (Page)m.Invoke(null, (new object[] { rq }));
-			return Encoding.ASCII.GetBytes(p.GetHeader() + p.GetBody());
+			try
+			{
+				Assembly assembly = (Assembly)ModuleList[methodnamespace];
+				Type t = assembly.GetType(method.Substring(0, method.LastIndexOf('.')));
+				MethodInfo m = t.GetMethod(method.Substring(method.LastIndexOf('.') + 1));
+				Page p = (Page)m.Invoke(null, (new object[] { rq }));
+				return Encoding.ASCII.GetBytes(p.GetHeader() + p.GetBody());
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e.Message + Environment.NewLine + e.StackTrace);
+				return Encoding.ASCII.GetBytes(Get404());
+			}
+		}
+
+		public static string Get404()
+		{
+			string b = "<h1>Error 404: Page Not Found!</h1>";
+			Header h = new Header("HTTP/1.1", "text/html", b.Length, " 404 Not Found");
+			return (h.GetHeader() + b);
 		}
     }
 }
