@@ -77,11 +77,9 @@
     <Compile Include="Modules\Dependency.cs" />
     <Compile Include="Modules\Errors\InvalidModuleMapException.cs" />
     <Compile Include="Modules\Module.cs" />
-    <Compile Include="Request\Header.cs" />
     <Compile Include="Request\RequestHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Request\RequestMethods\GetRequest.cs" />
     <Compile Include="Server\Listener.cs" />
     <Compile Include="Server\Server.cs" />
     <Compile Include="Server\SocketStateObject.cs" />

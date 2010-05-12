@@ -9,7 +9,7 @@ namespace libirek.Urls
         public string UrlPattern;
         public string Method;
 
-        private Regex rx;
+        public Regex rx;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UrlMapItem"/> class.

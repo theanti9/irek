@@ -18,9 +18,15 @@ namespace irektest
 	}
 	public class Class1
 	{
-		public static Page hello()
+		public static Page hello(Request rq)
 		{
-			return (new Page("<p>Hello, world!</p>"));
+			string body = "<form method='post'><input type='text' name='name' /><input type='text' name='pass' /><input type='submit' value='Submit' /></form><br />";
+			if (rq.POST.Count > 0)
+			{
+				body += "<p>Name: " + rq.POST["name"] + "</p>";
+				body += "<p>Password: " + rq.POST["pass"] + "</p>";
+			}
+			return (new Page(body));
 		}
 	}
 }

@@ -5,7 +5,6 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using irek.Request;
 using irek.Configuration;
 using libirek.Urls;
 namespace irek.Server
@@ -14,7 +13,6 @@ namespace irek.Server
     {
         private int port;
         private Socket server;
-        private Byte[] data = new Byte[2048];
         static ManualResetEvent allDone = new ManualResetEvent(false);
         public Config config;
         public List<UrlMapItem> GlobalUrlMap;
@@ -93,6 +91,7 @@ namespace irek.Server
                 {
                     string requestString = state.sb.ToString();
                     // HANDLE REQUEST HERE
+					Console.WriteLine(requestString);
                     byte[] answer = RequestHandler.Handle(requestString, ref config, ref GlobalUrlMap, ref ModuleList);
                     // Temporary response
                     /*

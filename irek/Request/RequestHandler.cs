@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using irek.Configuration;
-using irek.Request.RequestMethods;
 using libirek;
 using libirek.Urls;
-namespace irek.Request
+namespace irek
 {
     public static class RequestHandler
     {
@@ -23,18 +23,22 @@ namespace irek.Request
 			int space = firstline.IndexOf(' ');
 			string path = firstline.Substring(space + 1, firstline.LastIndexOf(' ')-space-1);
 			string method = null;
+			Regex rx = null;
 			foreach (UrlMapItem item in UrlMap) {
 				if (item.IsMatch(path))
 				{
 					method = item.Method;
+					rx = item.rx;
 				}
 			}
+			Request rq = new Request(request, rx);
 			string methodnamespace = method.Substring(0, method.IndexOf('.'));
 			Assembly assembly = (Assembly)ModuleList[methodnamespace];
 			Type t = assembly.GetType(method.Substring(0, method.LastIndexOf('.')));
 			MethodInfo m = t.GetMethod(method.Substring(method.LastIndexOf('.') + 1));
-			Page p = (Page)m.Invoke(null, (new object[] { }));
+			Page p = (Page)m.Invoke(null, (new object[] { rq }));
 			return Encoding.ASCII.GetBytes(p.GetHeader().GetHeader() + p.GetBody());
+
 		}
     }
 }
