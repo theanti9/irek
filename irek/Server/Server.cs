@@ -50,6 +50,11 @@ namespace irek.Server
 				List<UrlMapItem> tempmap = mod.UrlMap;
                 foreach (UrlMapItem mapitem in tempmap)
                 {
+					foreach (UrlMapItem item in GlobalUrlMap) {
+						if (item.UrlPattern == mapitem.UrlPattern) {
+							throw new DuplicateUrlPatternException("Error: Same url pattern used in multiple places");
+						}
+					}
                     GlobalUrlMap.Add(mapitem);
                 }
             }
