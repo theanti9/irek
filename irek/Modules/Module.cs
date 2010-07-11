@@ -34,7 +34,11 @@ namespace irek.Modules
                 throw new NoSuchModuleException("Error: No such module at '" + ModulePath + "'.");
             }
             ModuleAssembly = Assembly.LoadFile(ModulePath);
+#if (Windows && !Unix)
             int lastslash = ModulePath.LastIndexOf(@"\");
+#else
+			int lastslash = ModulePath.LastIndexOf("/");
+#endif			
             string assemblynamespace = ModulePath.Substring(lastslash+1, ModulePath.LastIndexOf('.') - lastslash-1);
 			ModuleNamespace = assemblynamespace;
             Type t = ModuleAssembly.GetType(assemblynamespace+".ModuleMap");

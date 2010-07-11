@@ -1,4 +1,6 @@
-﻿using System;
+﻿//#define Windows
+#define Unix
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -9,6 +11,7 @@ using irek.Configuration.Errors;
 using irek.Modules;
 using irek.Modules.Errors;
 using libirek.Urls;
+
 namespace irek.Server
 {
     public class Server
@@ -25,15 +28,23 @@ namespace irek.Server
             Console.WriteLine("Loading Configuration...");
             try
             {
-                ServerConfig = new Config(Directory.GetCurrentDirectory() + "\\irek.conf");
+#if (Windows && !Unix)
+				ServerConfig = new Config(Directory.GetCurrentDirectory() + "\\irek.conf");
+#else
+               	ServerConfig = new Config(Directory.GetCurrentDirectory() + "/irek.conf");
+#endif
             }
             catch (NoSuchConfigurationFileException e)
             {
                 Console.WriteLine("Error: " + e.Message);
                 Environment.Exit(1);
             }
-
-            ModuleConfig = new ModuleConfReader(Directory.GetCurrentDirectory() + "\\modules.conf");
+			
+#if (Windows && !Unix)
+			ModuleConfig = new ModuleConfReader(Directory.GetCurrentDirectory() + "\\modules.conf");
+#else
+			ModuleConfig = new ModuleConfReader(Directory.GetCurrentDirectory() + "/modules.conf");
+#endif
             foreach (string depstring in ModuleConfig.Dependencies)
             {
                 Dependency dep = new Dependency(depstring);
