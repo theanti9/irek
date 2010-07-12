@@ -6,8 +6,8 @@ namespace libirek
 {
 	public class Page
 	{
-		private Header PageHeader;
-		private string Body;
+		public Header PageHeader;
+		public string Body;
 
 		public Page(string body)
 		{

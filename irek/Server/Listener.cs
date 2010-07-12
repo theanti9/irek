@@ -93,13 +93,6 @@ namespace irek.Server
                     // HANDLE REQUEST HERE
 					//Console.WriteLine(requestString);
                     byte[] answer = RequestHandler.Handle(requestString, ref config, ref GlobalUrlMap, ref ModuleList);
-                    // Temporary response
-                    /*
-                    string resp = "<h1>It Works!</h1>";
-                    string head = "HTTP/1.1 200 OK\r\nContent-Type: text/html;\r\nServer: irek\r\nContent-Length:"+resp.Length+"\r\n\r\n";
-                    byte[] answer = Encoding.ASCII.GetBytes(head+resp);
-                    // end temp.
-                    */
                     state.workSocket.BeginSend(answer, 0, answer.Length, SocketFlags.None, new AsyncCallback(Send), state);
                 }
             }

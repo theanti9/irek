@@ -73,6 +73,7 @@ namespace irek.Server
 				Type t = assembly.GetType(method.Substring(0, method.LastIndexOf('.')));
 				MethodInfo m = t.GetMethod(method.Substring(method.LastIndexOf('.') + 1));
 				Page p = (Page)m.Invoke(null, (new object[] { rq }));
+				p.PageHeader.SetCookie("ISESSION=" + Util.RandomString(16) + ";path=/");
 				return Encoding.ASCII.GetBytes(p.GetHeader() + p.GetBody());
 			}
 			catch (Exception e)
