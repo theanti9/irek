@@ -12,6 +12,7 @@ namespace libirek
 		string HttpVersion;
 		int ContentLength;
 		string HttpStatus;
+		string Cookie;
         /// <summary>
         /// Initializes a new instance of the <see cref="Header"/> class.
         /// </summary>
@@ -25,6 +26,7 @@ namespace libirek
 			ContentType = Type;
 			HttpStatus = Status;
 			ContentLength = Length;
+			Cookie = null;
             String buffer = "";
 
             if (ContentType.Length == 0)
@@ -58,6 +60,15 @@ namespace libirek
 			ContentLength = length;
 		}
 
+		/// <summary>
+		/// Set ext
+		/// </summary>
+		/// <param name="cookie"></param>
+		public void SetCookie(string cookie)
+		{
+			Cookie += "Set-Cookie: " + cookie;
+		}
+
         /// <summary>
         /// Gets the header.
         /// </summary>
@@ -69,7 +80,12 @@ namespace libirek
 			buffer = buffer + "Server: irek\r\n";
 			buffer = buffer + "Content-Type: " + ContentType + "\r\n";
 			buffer = buffer + "Accept-Ranges: bytes\r\n";
-			buffer = buffer + "Content-Length: " + ContentLength + "\r\n\r\n";
+			buffer = buffer + "Content-Length: " + ContentLength + "\r\n";
+			if (!string.IsNullOrEmpty(Cookie))
+			{
+				buffer = buffer + Cookie + "\r\n";
+			}
+			buffer = buffer + "\r\n";
 			header = buffer;
             return header;
         }

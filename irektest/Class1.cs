@@ -12,6 +12,7 @@ namespace irektest
 		{
 			List<UrlMapItem> map = new List<UrlMapItem>();
 			map.Add(new UrlMapItem(@"^\/hello\/", "irektest.Class1.hello"));
+			map.Add(new UrlMapItem(@"^\/goodbye\/", "irektest.Class1.goodbye"));
 			map.Add(new UrlMapItem(@"^\/media\/(.+)", "irek.static", @"E:\"));
 
 			return map;
@@ -28,6 +29,10 @@ namespace irektest
 				body += "<p>Password: " + rq.POST["pass"] + "</p>";
 			}
 			return (new Page(body));
+		}
+		public static Page goodbye(Request rq)
+		{
+			return (new Page(rq.RequestedPath));
 		}
 	}
 }
