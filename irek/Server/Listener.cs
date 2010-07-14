@@ -113,7 +113,8 @@ namespace irek.Server
             try
             {
                 SocketStateObject state = (SocketStateObject)iar.AsyncState;
-                int sent = state.workSocket.EndSend(iar);
+                //int sent = state.workSocket.EndSend(iar);
+				state.workSocket.EndSend(iar);
                 state.workSocket.Shutdown(SocketShutdown.Both);
                 state.workSocket.Close();
             }

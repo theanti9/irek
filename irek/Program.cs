@@ -8,7 +8,12 @@ namespace irek
         static void Main(string[] args)
         {
             Console.WriteLine("Starting irek!");
-            srv = new irek.Server.Server();
+			try {
+            	srv = new irek.Server.Server();
+			} catch (Exception e) {
+				Logger.GetInstance().LogError(e.Message + " From " + e.Source);
+				Environment.Exit(1);
+			}
         }
     }
 }

@@ -36,43 +36,62 @@ namespace irek.Server
             }
             catch (NoSuchConfigurationFileException e)
             {
-                Console.WriteLine("Error: " + e.Message);
+                Logger.GetInstance().LogError(e.Message);
                 Environment.Exit(1);
             }
-			
+			try {
 #if (Windows && !Unix)
-			ModuleConfig = new ModuleConfReader(Directory.GetCurrentDirectory() + "\\modules.conf");
+				ModuleConfig = new ModuleConfReader(Directory.GetCurrentDirectory() + "\\modules.conf");
 #else
-			ModuleConfig = new ModuleConfReader(Directory.GetCurrentDirectory() + "/modules.conf");
+				ModuleConfig = new ModuleConfReader(Directory.GetCurrentDirectory() + "/modules.conf");
 #endif
+			} catch (NoSuchConfigurationFileException e) {
+				Logger.GetInstance().LogError(e.Message);
+				Environment.Exit(1);
+			}
             foreach (string depstring in ModuleConfig.Dependencies)
             {
-                Dependency dep = new Dependency(depstring);
-                dep.Load();
+				try {
+	                Dependency dep = new Dependency(depstring);
+	                dep.Load();
+				} catch (MissingDependencyException e) {
+					Logger.GetInstance().LogError(e.Message);
+					Environment.Exit(1);
+				}
             }
 
             GlobalUrlMap = new List<UrlMapItem>();
 			ModuleList = new Hashtable();
-            foreach (string modstring in ModuleConfig.Modules)
-            {
-                Module mod = new Module(modstring);
-                mod.Load();
-				ModuleList.Add(mod.ModuleNamespace, mod.ModuleAssembly);
-				List<UrlMapItem> tempmap = mod.UrlMap;
-                foreach (UrlMapItem mapitem in tempmap)
-                {
-					foreach (UrlMapItem item in GlobalUrlMap) {
-						if (item.UrlPattern == mapitem.UrlPattern) {
-							throw new DuplicateUrlPatternException("Error: Same url pattern used in multiple places");
+			try {
+	            foreach (string modstring in ModuleConfig.Modules)
+	            {
+	                Module mod = new Module(modstring);
+	                mod.Load();
+					ModuleList.Add(mod.ModuleNamespace, mod.ModuleAssembly);
+					List<UrlMapItem> tempmap = mod.UrlMap;
+	                foreach (UrlMapItem mapitem in tempmap)
+	                {
+						foreach (UrlMapItem item in GlobalUrlMap) {
+							if (item.UrlPattern == mapitem.UrlPattern) {
+								throw new DuplicateUrlPatternException("Error: Same url pattern used in multiple places");
+							}
 						}
-					}
-                    GlobalUrlMap.Add(mapitem);
-                }
-            }
+	                    GlobalUrlMap.Add(mapitem);
+	                }
+	            }
+			} catch (DuplicateUrlPatternException e) {
+				Logger.GetInstance().LogError(e.Message);
+				Environment.Exit(1);
+			}
             
             Console.WriteLine("Initializing...");
             Listener listener = new Listener(ServerConfig, GlobalUrlMap, ModuleList);
-            listener.Run();
+			try {
+            	listener.Run();
+			} catch (Exception e) {
+				Logger.GetInstance().LogError(e.Message + " From " + e.Source);
+				Environment.Exit(1);
+			}
         }
     }
 }

@@ -22,7 +22,7 @@ namespace irektest
 	{
 		public static Page hello(Request rq)
 		{
-			string body = "<form method='post'><input type='text' name='name' /><input type='text' name='pass' /><input type='submit' value='Submit' /></form><br />";
+			string body = "<form method='post'><input type='text' name='name' /><input type='password' name='pass' /><input type='submit' value='Submit' /></form><br />";
 			if (rq.POST.Count > 0)
 			{
 				body += "<p>Name: " + rq.POST["name"] + "</p>";

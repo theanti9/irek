@@ -78,7 +78,7 @@ namespace irek.Server
 			}
 			catch (Exception e)
 			{
-				Console.WriteLine(e.Message + Environment.NewLine + e.StackTrace);
+				Logger.GetInstance().LogError(e.Message + " From " + e.Source);
 				return Encoding.ASCII.GetBytes(Get404());
 			}
 		}
