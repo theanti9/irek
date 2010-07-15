@@ -23,6 +23,8 @@ namespace irek.Server
         public static byte[] Handle(string request, ref Config config, ref List<UrlMapItem> UrlMap, ref Hashtable ModuleList)
         {
 			string firstline = request.Split((new string[] { "\r\n" }),StringSplitOptions.None)[0];
+			StringBuilder logline = new StringBuilder();
+			logline.Append(firstline);
 			int space = firstline.IndexOf(' ');
 			string path = firstline.Substring(space + 1, firstline.LastIndexOf(' ')-space-1);
 			string method = null;
@@ -36,9 +38,16 @@ namespace irek.Server
 					staticpath = item.Path;
 				}
 			}
+			logline.Append(" : " + method);
+			if (!String.IsNullOrEmpty(staticpath)) {
+				logline.Append(" " + staticpath);
+			}
 			if (string.IsNullOrEmpty(method))
 			{
+				logline.Append(" : 404");
+				Logger.GetInstance().LogAccess(logline.ToString());
 				return Encoding.ASCII.GetBytes(Get404());
+				
 			}
 			if (method == "irek.static") {
 				Match match = rx.Match(path);
@@ -47,7 +56,11 @@ namespace irek.Server
 				{
 					staticpath += "\\";
 				}
+#if (Windows && !Unix)
 				staticpath = staticpath + addpath.Replace("/", "\\");
+#else
+				staticpath = staticpath + addpath;
+#endif
 				if (File.Exists(staticpath))
 				{
 					int numbytes = (int)new FileInfo(staticpath).Length;
@@ -58,10 +71,14 @@ namespace irek.Server
 					byte[] buff = new byte[len];
 					Buffer.BlockCopy(Encoding.ASCII.GetBytes(head), 0, buff, 0, head.Length);
 					Buffer.BlockCopy(br.ReadBytes(numbytes), 0, buff, head.Length, numbytes);
+					logline.Append(" : 200");
+					Logger.GetInstance().LogAccess(logline.ToString());
 					return buff;
 				}
 				else
 				{
+					logline.Append(" : 404");
+					Logger.GetInstance().LogAccess(logline.ToString());
 					return Encoding.ASCII.GetBytes(Get404());
 				}
 			}
